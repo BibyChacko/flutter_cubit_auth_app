@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   else if (state is AuthenticationError) {
                     Fluttertoast.showToast(
-                        msg: "Invalid username or password",
+                        msg: "Invalid credentials",
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
