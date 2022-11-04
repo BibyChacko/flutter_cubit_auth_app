@@ -22,7 +22,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           await _repository.readUserDataFile(); // biby@gmail.com --12345
       UserData loggedUserData = userList.firstWhere((element) =>
           element.email == username && element.password == password);
-      await Future.delayed(Duration(seconds: 15));
       if (loggedUserData != null) {
         StorageHelper.writeData(StorageKey.userData.name,
             jsonEncode(loggedUserData.toJson())); // Instance of UserData

@@ -1,4 +1,5 @@
 import 'package:authentication_cubit/src/cubit/authentication/authentication_cubit.dart';
+import 'package:authentication_cubit/src/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,20 +40,41 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 controller: _passwordController,
               ),
-             BlocBuilder<AuthenticationCubit,AuthenticationState>(
-               builder: (context,state){
-                 if(state is AuthenticationLoading){
-                   return Center(child: CircularProgressIndicator());
-                 }
-                 return  ElevatedButton(onPressed: () {
-                   context.read<AuthenticationCubit>().login(
-                       _userNameController.text.trim(), _passwordController.text
-                   );
-                 }, child: Text("Login")
-                 );
-               },
+              BlocConsumer<AuthenticationCubit, AuthenticationState>(
+                listener: (context, state) {
+                  if(state is AuthenticationSuccess){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                  }else if(state is AuthenticationFailure){
+                    showDialog(
+                        context: context,
+                        builder: (_){
+                          return AlertDialog(
+                            title: Text("Login Failed"),
+                            content: Text("Please check your credentials"),
+                            actions: [
+                              TextButton(onPressed: (){
+                                Navigator.pop(context);
+                              }, child: Text("OK"))
+                            ],
+                          );
+                        }
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is AuthenticationLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return ElevatedButton(onPressed: () {
+                    context.read<AuthenticationCubit>().login(
+                        _userNameController.text.trim(), _passwordController
+                        .text
+                    );
+                  }, child: Text("Login")
+                  );
+                },
 
-             )
+              )
             ],
           ),
         ),
