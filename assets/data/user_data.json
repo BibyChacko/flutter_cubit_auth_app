@@ -1,0 +1,21 @@
+
+[
+  {
+    "name": "Admin",
+    "email" : "admin@ndz.com",
+    "password" : "admin@123",
+    "address": "HO,Kochi"
+  },
+  {
+    "name": "Neenu",
+    "email" : "hr@ndz.com",
+    "password" : "hr@123",
+    "address": "HO,Kochi"
+  },
+  {
+    "name": "Trainer",
+    "email" : "trainer@ndz.com",
+    "password" : "trainer@123",
+    "address": "HO,Kochi"
+  }
+]
